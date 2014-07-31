@@ -18,6 +18,7 @@ module Rack
         # compile == true => active pipeline
         # compile == false => disabled pipeline
         @active = ::Rails.configuration.assets.compile
+        @extra_extensions = ::Rails.configuration.assets.static_extensions
       end
 
       def compiles?(path_info)
@@ -68,7 +69,7 @@ module Rack
       end
 
       def self.has_static_extension?(path)
-        path =~ AssetServer::STATIC_EXTENSION_REGEX
+        path =~ AssetServer::STATIC_EXTENSION_REGEX || path =~ @extra_extensions
       end
 
       def ==(other)
