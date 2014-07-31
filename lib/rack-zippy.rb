@@ -129,6 +129,10 @@ module Rack
           end
 
           status = 200
+          headers['Access-Control-Allow-Origin'] = '*'
+          headers['Access-Control-Allow-Methods'] = 'GET'
+          headers['Access-Control-Allow-Headers'] = '*'
+          headers['Access-Control-Max-Age'] = "1728000"
           headers['Content-Length'] = ::File.size(file_path).to_s
           response_body = [::File.read(file_path)]
           return [status, headers, response_body]
